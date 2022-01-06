@@ -1,11 +1,17 @@
-#Perceptual gambling task
+# [Perceptual gambling task](https://arxiv.org/abs/2112.12278)
 
-### 1. Stage 1, `fix_perceptual`
-The animal learns to fixate up to 1s, at the same time, it learns the mapping between two end sounds and the port sides. Variable block structure is used. Block lengths 10,15,20. 
+
+## What is the task for?
+Traditionally, decision making has been studied by separate groups. One group studies perceptual decision making: how animals and humans detect, discriminate, and categorize information from noisy sensory inputs. The other group studies economic decision making: multi-attribute decisions that reveal an individual's preferences. Many real-life decisions, such as judging whether a yogurt has gone bad, actually involve both perceptual and economic components. This is the first rodent task that requires the rat to make a decision guided by both perceptual (the frequency of the sound relative to a learned threshold) and economic (the side of light flash indicating reward asymmetry) on a trial-by-trial basis. 
+
+## Training stages
+
+### Stage 1: `fix_perceptual`
+The animal learns to fixate up to 1s, at the same time, it learns the mapping between two end sounds and the port sides. Variable block structure is used. Block lengths 10,15,20.
 
 Upgrade criterion: `nanmean(obj.hit) > 0.7`
 
-### 2. Stage 2, `perceptual_cont`
+### Stage 2: `perceptual_cont`
 The animal starts with `pitch_edge = 2`, and gradually progresses to `pitch_edge = 5` if their mean of `obj.hit` in a single session exceeds 0.7. See the table below for the list of sounds included in each pitch edge. Performance-based block structure is used. Block lengths 3,5,7,9. 
 
 Upgrade criterion: `nanmean(obj.hit) > 0.7`
@@ -19,23 +25,23 @@ Upgrade criterion: `nanmean(obj.hit) > 0.7`
 |4|[2,2.25,2.5,2.75,3.25,3.5,3.75,4]|
 |5|random between [2,3) or (3,4]|
 
-### Stage 3, `perceptual_rcont`
+### Stage 3: `perceptual_rcont`
 The animal now encounters the full range of the sounds, no block structure. 
 
 Upgrade criterion: `nanmean(obj.hit) > 0.7`
 
-### Stage 4, `hedging`
+### Stage 4: `hedging`
 Light flashes appear with variable delays (0 to 300ms) after the poke initiation. It overlaps with the sound and lasts until the end of fixation. The side of light flashes is the 5x reward side if correct. Variable block structure for light flashes is used. Block lengths 10,13,15.
 
 Manual promotion.
 
-### Stage 5, `hedging_rand`
+### Stage 5: `hedging_rand`
 Similar to `hedging`, except that no block structure is present. This is the end stage of the protocol.
 
-### Stage 6, `pg_auditory`
+### Stage 6: `pg_auditory`
 Despite being stage 6, this is not a more advanced stage than stage 5. It is a control task where instead of the light flashes, the speaker side now indicates the larger reward side. Note that there is NO delay between the perceptual and value cue now, as they are both present in the sound alone. Variable block structure for speaker side is used. Block lengths 10,13,15.
 
-### Stage 7, `pg_auditory_rand`
+### Stage 7: `pg_auditory_rand`
 Similar to `pg_auditory`, except that no block structure is present. 
 
 
